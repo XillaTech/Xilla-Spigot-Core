@@ -1,0 +1,10 @@
+name: SpigotCore
+version: 1.0.0
+main: net.xilla.spigotcore.SpigotCorea
+description: A gems plugin
+author: Tobias
+softdepend: [PlaceholderAPI]
+commands:
+  spigotcore:
+    usage: /<command>
+    description: "Spigot core command"
