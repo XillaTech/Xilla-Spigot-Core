@@ -1,6 +1,10 @@
 package net.xilla.spigotcore;
 
 import com.tobiassteely.tobiasapi.TobiasAPI;
+import com.tobiassteely.tobiasapi.api.manager.CoreManager;
+import com.tobiassteely.tobiasapi.api.worker.WorkerManager;
+import com.tobiassteely.tobiasapi.command.CommandManager;
+import com.tobiassteely.tobiasapi.config.ConfigManager;
 import net.xilla.spigotcore.locale.Locale;
 import net.xilla.spigotcore.placeholder.Placeholder;
 import net.xilla.spigotcore.placeholder.PlaceholderAPI;
@@ -14,6 +18,10 @@ public class SpigotAPI {
 
     public static SpigotCore getCore() {
         return SpigotCore.getInstance();
+    }
+
+    public static SpigotObject getSpigotObject() {
+        return new SpigotObject();
     }
 
     public static TobiasAPI getAPI() {
@@ -42,6 +50,22 @@ public class SpigotAPI {
 
     public static PlaceholderAPI getPlaceholderAPI() {
         return SpigotCore.getInstance().getPlaceholderAPI();
+    }
+
+    public static CommandManager getCommandManager() {
+        return getAPI().getCommandManager();
+    }
+
+    public static ConfigManager getConfigManager() {
+        return getAPI().getConfigManager();
+    }
+
+    public static WorkerManager getWorkerManager() {
+        return getAPI().getWorkerManager();
+    }
+
+    public static CoreManager getCoreManager() {
+        return getAPI().getManager();
     }
 
 }

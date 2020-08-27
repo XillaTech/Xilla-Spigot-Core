@@ -19,7 +19,7 @@ configurations {
 }
 
 dependencies {
-    compileOnly files('libs/Paper-1.16.1-latest.jar')
+    compileOnly files('libs/Paper-1.12.2.jar')
     jarLibs files('libs/TobiasAPI-1.0-SNAPSHOT-all.jar')
     compileOnly 'me.clip:placeholderapi:2.10.9'
 

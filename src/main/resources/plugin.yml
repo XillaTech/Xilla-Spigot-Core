@@ -1,10 +1,11 @@
 name: SpigotCore
 version: 1.0.0
-main: net.xilla.spigotcore.SpigotCorea
+main: net.xilla.spigotcore.SpigotCore
 description: A gems plugin
 author: Tobias
 softdepend: [PlaceholderAPI]
 commands:
   spigotcore:
     usage: /<command>
+    permission: spigotcore.admin
     description: "Spigot core command"

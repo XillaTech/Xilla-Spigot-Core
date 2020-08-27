@@ -3,6 +3,7 @@ package net.xilla.spigotcore;
 import com.tobiassteely.tobiasapi.TobiasAPI;
 import com.tobiassteely.tobiasapi.TobiasBuilder;
 import net.xilla.spigotcore.gui.InventoryManager;
+import net.xilla.spigotcore.log.SpigotLogger;
 import net.xilla.spigotcore.placeholder.ClipPlaceholderManager;
 import net.xilla.spigotcore.placeholder.PlaceholderAPI;
 import net.xilla.spigotcore.placeholder.PlaceholderManager;
@@ -32,31 +33,45 @@ public class SpigotCore extends JavaPlugin {
         TobiasBuilder builder = new TobiasBuilder();
         builder.loadConfigManager(getDataFolder().toPath().toString());
         this.api = builder.build(false);
-        this.settings = new SpigotSettings();
-        this.placeholderManager = new PlaceholderManager();
-        this.placeholderAPI = new PlaceholderAPI();
-        this.playerAPI = new PlayerAPI();
+        api.getLog().setLogger(new SpigotLogger());
 
-        SpigotAPI.getServer().getPluginManager().registerEvents(new InventoryManager(), this);
+        try {
+            this.settings = new SpigotSettings();
+            this.placeholderManager = new PlaceholderManager();
+            this.placeholderAPI = new PlaceholderAPI();
+            this.playerAPI = new PlayerAPI();
 
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
-            new ClipPlaceholderManager(this).register();
+            SpigotAPI.getServer().getPluginManager().registerEvents(new InventoryManager(), this);
+
+            if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+                new ClipPlaceholderManager(this).register();
+            }
+
+            new SpigotCommands();
+        } catch (Exception e) {
+            SpigotLogger.logException(e);
         }
     }
 
     @Override
     public void onDisable() {
-        settings.getConfig().save();
-        this.settings = null;
+        try {
+            settings.getConfig().save();
+            this.settings = null;
 
-        placeholderManager.save();
-        this.placeholderManager = null;
+            placeholderManager.save();
+            this.placeholderManager = null;
 
-        this.clipPlaceholderManager.unregister();
-        this.clipPlaceholderManager = null;
+            if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+                this.clipPlaceholderManager.unregister();
+                this.clipPlaceholderManager = null;
+            }
 
-        this.placeholderAPI = null;
-        this.playerAPI = null;
+            this.placeholderAPI = null;
+            this.playerAPI = null;
+        } catch (Exception e) {
+            SpigotLogger.logException(e);
+        }
 
         instance = null;
         this.api = null;
