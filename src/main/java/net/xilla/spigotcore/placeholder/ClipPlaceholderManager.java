@@ -2,12 +2,12 @@ package net.xilla.spigotcore.placeholder;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.xilla.spigotcore.SpigotAPI;
-import net.xilla.spigotcore.SpigotCore;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class ClipPlaceholderManager extends PlaceholderExpansion {
 
-    private SpigotCore plugin;
+    private SpigotAPI plugin;
 
     /**
      * Since we register the expansion inside our own plugin, we
@@ -17,7 +17,7 @@ public class ClipPlaceholderManager extends PlaceholderExpansion {
      * @param plugin
      *        The instance of our plugin.
      */
-    public ClipPlaceholderManager(SpigotCore plugin){
+    public ClipPlaceholderManager(SpigotAPI plugin){
         this.plugin = plugin;
     }
 
@@ -52,7 +52,7 @@ public class ClipPlaceholderManager extends PlaceholderExpansion {
      */
     @Override
     public String getAuthor(){
-        return plugin.getDescription().getAuthors().toString();
+        return plugin.getPlugin().getDescription().getAuthors().toString();
     }
 
     /**
@@ -79,7 +79,7 @@ public class ClipPlaceholderManager extends PlaceholderExpansion {
      */
     @Override
     public String getVersion(){
-        return plugin.getDescription().getVersion();
+        return plugin.getPlugin().getDescription().getVersion();
     }
 
     /**
@@ -89,15 +89,15 @@ public class ClipPlaceholderManager extends PlaceholderExpansion {
      * <br>Since version 2.9.1 can you use OfflinePlayers in your requests.
      *
      * @param  player
-     *         A {@link org.bukkit.Player Player}.
+     *         A {@link org.bukkit.OfflinePlayer Player}.
      * @param  identifier
      *         A String containing the identifier/value.
      *
      * @return possibly-null String of the requested identifier.
      */
     @Override
-    public String onPlaceholderRequest(Player player, String identifier) {
-        String inserted = SpigotAPI.getCore().getPlaceholderManager().injectPlaceholders(identifier, player);
+    public String onPlaceholderRequest(Player player, @NotNull String identifier) {
+        String inserted = SpigotAPI.getCore().getPlaceholderManager().injectPlaceholders("%" + identifier + "%", player);
         if(!inserted.equals(identifier)) {
             return inserted;
         }

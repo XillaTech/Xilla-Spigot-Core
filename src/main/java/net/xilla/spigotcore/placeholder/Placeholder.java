@@ -1,6 +1,8 @@
 package net.xilla.spigotcore.placeholder;
 
-import com.tobiassteely.tobiasapi.api.manager.ManagerObject;
+import net.xilla.core.library.json.XillaJson;
+import net.xilla.core.library.manager.ManagerObject;
+import net.xilla.core.library.manager.XillaManager;
 import org.bukkit.entity.Player;
 
 public class Placeholder extends ManagerObject {
@@ -10,7 +12,7 @@ public class Placeholder extends ManagerObject {
     private PlaceholderExecutor executor;
 
     public Placeholder(String plugin, String placeholder, PlaceholderExecutor executor) {
-        super(plugin + "_" + placeholder);
+        super(plugin + "_" + placeholder, XillaManager.getInstance().get("Spigot_Placeholder"));
         this.plugin = plugin;
         this.placeholder = placeholder;
         this.executor = executor;
@@ -24,5 +26,21 @@ public class Placeholder extends ManagerObject {
         return getKey();
     }
 
+    public String getPlaceholder() {
+        return placeholder;
+    }
 
+    public String getPlugin() {
+        return plugin;
+    }
+
+    @Override
+    public XillaJson getSerializedData() {
+        return null;
+    }
+
+    @Override
+    public void loadSerializedData(XillaJson xillaJson) {
+
+    }
 }

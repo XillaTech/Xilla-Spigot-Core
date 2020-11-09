@@ -1,9 +1,10 @@
 package net.xilla.spigotcore.locale;
 
-import net.xilla.spigotcore.settings.Settings;
+import net.xilla.core.library.config.Config;
+import net.xilla.spigotcore.SpigotAPI;
 import org.bukkit.ChatColor;
 
-public class Locale extends Settings {
+public class Locale extends Config {
 
     private static Locale instance = new Locale();
 
@@ -12,25 +13,25 @@ public class Locale extends Settings {
     }
 
     private Locale() {
-        super("Locale", "language.json");
-        getConfig().loadDefault("prefix", "&8[&3Core&8]");
-        getConfig().save();
+        super( SpigotAPI.getInstance().getPlugin().getDataFolder() + "/language.json");
+        setDefault("prefix", "&8[&3Core&8]");
+        save();
     }
 
     public Locale(String plugin) {
-        super("Locale", "language-" + plugin + ".json");
-        getConfig().loadDefault("prefix", "&8[&3" + plugin + "&8] &f");
-        getConfig().save();
+        super("language-" + plugin + ".json");
+        setDefault("prefix", "&8[&3" + plugin + "&8] &f");
+        save();
     }
 
     public String getPrefix() {
-        return getConfig().getString("prefix");
+        return getString("prefix");
     }
 
     public String getMessage(String key, String defaultData) {
-        if(getConfig().loadDefault(key, defaultData))
-            getConfig().save();
-        return getConfig().getString(key);
+        if(setDefault(key, defaultData))
+            save();
+        return getString(key);
     }
 
     public String colorize(String str) {

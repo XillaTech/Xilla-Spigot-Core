@@ -1,12 +1,11 @@
 package net.xilla.spigotcore;
 
-import com.tobiassteely.tobiasapi.api.manager.CoreManager;
-import com.tobiassteely.tobiasapi.api.manager.ManagerParent;
-import com.tobiassteely.tobiasapi.api.worker.Worker;
+import net.xilla.core.library.manager.Manager;
+import net.xilla.core.library.manager.XillaManager;
 import net.xilla.spigotcore.command.SpigotCommand;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SpigotCommands extends SpigotObject {
 
@@ -15,24 +14,24 @@ public class SpigotCommands extends SpigotObject {
     }
 
     public void coreCommand() {
-        new SpigotCommand(SpigotCore.getInstance(), "spigotcore", new ArrayList<>(), (data -> {
+        new SpigotCommand((JavaPlugin)SpigotAPI.getInstance().getPlugin(), "spigotcore", new ArrayList<>(), (data -> {
             StringBuilder stringBuilder = new StringBuilder();
             if(data.getArgs().length >= 1 && data.getArgs()[0].equalsIgnoreCase("status")) {
                 stringBuilder.append("&8&m                        &f");
 
                 StringBuilder mtb = new StringBuilder();
-                for (ManagerParent manager : CoreManager.getInstance().getManagers()) {
-                    mtb.append(" &8- &f").append(manager.getIdentifier()).append(" (" ).append(manager.getList().size()).append(")\n");
+                for (Manager manager : new ArrayList<>(XillaManager.getInstance().getData().values())) {
+                    mtb.append(" &8- &f").append(manager.getName()).append(" (" ).append(manager.getData().size()).append(")\n");
                 }
 
                 stringBuilder.append(" &cManagers: \n").append(mtb.toString()).append("\n");
-
-                StringBuilder wtb = new StringBuilder();
-                for (Worker worker : getAPI().getWorkerManager().getList()) {
-                    wtb.append(" &8- &f").append(worker.getKey()).append(" (" ).append(worker.getStatus()).append(")\n");
-                }
-
-                stringBuilder.append(" &cWorkers: \n").append(wtb.toString()).append("\n");
+//
+//                StringBuilder wtb = new StringBuilder();
+//                for (Worker worker : getAPI().getWorkerManager().getList()) {
+//                    wtb.append(" &8- &f").append(worker.getKey()).append(" (" ).append(worker.getStatus()).append(")\n");
+//                }
+//
+//                stringBuilder.append(" &cWorkers: \n").append(wtb.toString()).append("\n");
 
                 stringBuilder.append("&8&m                        &f");
             } else if(data.getArgs().length >= 1 && data.getArgs()[0].equalsIgnoreCase("tps")) {

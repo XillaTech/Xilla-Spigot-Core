@@ -1,6 +1,6 @@
 package net.xilla.spigotcore;
 
-import net.xilla.spigotcore.log.SpigotLogger;
+import net.xilla.core.log.Logger;
 
 public class SpigotException extends Exception {
 
@@ -10,14 +10,14 @@ public class SpigotException extends Exception {
         super(message);
         this.clazz = clazz;
 
-        SpigotLogger.logCoreException(this);
+        Logger.log(this, this.clazz);
     }
 
     public SpigotException(String plugin, String message, Class clazz) {
         super(message);
         this.clazz = clazz;
 
-        SpigotLogger.logCoreException(plugin, this);
+        Logger.log(this, this.clazz);
     }
 
     public Class getClazz() {

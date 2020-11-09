@@ -1,26 +1,36 @@
 package net.xilla.spigotcore.command;
 
-        import net.xilla.spigotcore.log.SpigotLogger;
-        import org.bukkit.plugin.java.JavaPlugin;
+import net.xilla.core.log.LogLevel;
+import net.xilla.core.log.Logger;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.plugin.java.JavaPlugin;
 
-        import java.util.List;
-        import java.util.Objects;
+import java.util.List;
 
-public class SpigotCommand {
+public class SpigotCommand extends CommandLibrary {
 
     public SpigotCommand(JavaPlugin plugin, String command, List<String> aliases, CmdExecutor executor) {
-        Objects.requireNonNull(plugin.getCommand(command)).setExecutor(((sender, command1, label, args) -> {
-            if(label.equalsIgnoreCase(command) || aliases.contains(label.toLowerCase())) {
-                try {
-                    return executor.execute(new CommandData(sender, command1, label, args));
-                } catch (Exception e) {
-                    SpigotLogger.logException(e);
-                    return true;
+        if(plugin == null) {
+            Logger.log(LogLevel.FATAL, "Command is missing it's plugin data!", getClass());
+            return;
+        }
+        PluginCommand cmd = plugin.getCommand(command);
+        if(cmd != null) {
+            cmd.setExecutor(((sender, command1, label, args) -> {
+                if (label.equalsIgnoreCase(command) || aliases.contains(label.toLowerCase())) {
+                    try {
+                        return executor.execute(new CommandData(sender, command1, label, args));
+                    } catch (Exception e) {
+                        Logger.log(e, this.getClass());
+                        return true;
+                    }
+                } else {
+                    return false;
                 }
-            } else {
-                return false;
-            }
-        }));
+            }));
+        } else {
+            Logger.log(LogLevel.WARN, "Command " + command + " is not in the plugin.yml!", getClass());
+        }
     }
 
 }

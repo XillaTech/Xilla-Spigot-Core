@@ -1,14 +1,14 @@
 package net.xilla.spigotcore;
 
-import net.xilla.spigotcore.settings.Settings;
+import net.xilla.core.library.config.Config;
 
-public class SpigotSettings extends Settings {
+public class SpigotSettings extends Config {
 
     public SpigotSettings() {
-        super("Spigot", "settings.json");
+        super("settings.json");
 
-        getConfig().loadDefault("placeholder-separator", "%");
-        getConfig().loadDefault("keep-offline-players-in-cache", false);
+        setDefault("placeholder-separator", "%");
+        setDefault("keep-offline-players-in-cache", false);
     }
 
 }
