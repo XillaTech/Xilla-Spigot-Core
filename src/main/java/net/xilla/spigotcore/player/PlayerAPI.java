@@ -29,20 +29,24 @@ public class PlayerAPI {
         return spigotPlayer;
     }
 
-    public <Response> Response getData(SpigotPlayer object, String key) throws SpigotException {
-        return (Response)object.get(key);
+    public <T> T getData(SpigotPlayer object, String key) throws SpigotException {
+        return (T)object.get(key);
     }
 
-    public <Response> Response getData(String object, String key) throws SpigotException {
-        return getData((SpigotPlayer) SpigotAPI.getInstance().getPlayerManager().get(object), key);
+    public <T> T getData(Player object, String key) throws SpigotException {
+        return getData(get(object), key);
     }
 
     public void setData(SpigotPlayer object, String key, Object data) {
         object.set(key, data);
     }
 
-    public void setData(String object, String key, Object data) {
-        setData((SpigotPlayer) SpigotAPI.getInstance().getPlayerManager().get(object), key, data);
+    public void setData(Player object, String key, Object data) {
+        try {
+            setData(get(object), key, data);
+        } catch (SpigotException e) {
+            e.printStackTrace();
+        }
     }
 
 }

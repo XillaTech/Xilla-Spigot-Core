@@ -8,37 +8,25 @@ import net.xilla.spigotcore.player.PlayerManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 
-public class SpigotObject extends XillaLibrary {
+public interface SpigotObject extends XillaLibrary {
 
-    public SpigotAPI getCore() {
+    default SpigotAPI getCore() {
         return SpigotAPI.getInstance();
     }
 
-    public Server getServer() {
+    default Server getServer() {
         return SpigotAPI.getInstance().getPlugin().getServer();
     }
 
-    public String colorize(String str) {
+    default String colorize(String str) {
         return ChatColor.translateAlternateColorCodes('&', str);
     }
 
-    public PlayerAPI getPlayerAPI() {
-        return getCore().getPlayerAPI();
-    }
-
-    public PlayerManager getPlayerManager() {
+    default PlayerManager getPlayerManager() {
         return getCore().getPlayerManager();
     }
 
-    public PlaceholderAPI getPlaceholderAPI() {
-        return getCore().getPlaceholderAPI();
-    }
-
-    public SpigotSettings getSettings() {
-        return getCore().getSettings();
-    }
-
-    public PlaceholderManager getPlaceholderManager() {
+    default PlaceholderManager getPlaceholderManager() {
         return getCore().getPlaceholderManager();
     }
 

@@ -8,13 +8,14 @@ import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class GuiItem extends SpigotObject {
+public class GuiItem implements SpigotObject {
 
     @Getter
     @Setter
     private ItemStack itemStack;
 
     @Setter
+    @Getter
     private GuiButtonExecutor executor;
 
     public GuiItem(ItemStack itemStack, GuiButtonExecutor executor) {

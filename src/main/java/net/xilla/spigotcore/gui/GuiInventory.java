@@ -8,7 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -21,16 +23,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GuiInventory extends SpigotObject implements Listener {
+public class GuiInventory implements SpigotObject, Listener {
 
     private static Map<HumanEntity, GuiInventory> openInventories = new HashMap<>();
 
     @Getter
-    private Map<Integer, GuiItem> items = new HashMap<>();
+    private Map<Integer, GuiItem> items;
     @Getter
     private String name;
     @Getter
     private final Inventory inv;
+    @Getter
+    @Setter
+    private boolean canMoveEmptyItems = false;
 
     private int lastSlot = -1;
 
@@ -39,8 +44,6 @@ public class GuiInventory extends SpigotObject implements Listener {
         this.items = new HashMap<>();
 
         this.inv = Bukkit.createInventory(null, size, colorize(name));
-
-        SpigotAPI.getInstance().getPlugin().getServer().getPluginManager().registerEvents(this, SpigotAPI.getInstance().getPlugin());
     }
 
     public void setItem(int slot, GuiItem item) {
@@ -56,14 +59,20 @@ public class GuiInventory extends SpigotObject implements Listener {
     }
 
     public void openMenu(HumanEntity player, Object... args) {
+
+        SpigotAPI.getInstance().getPlugin().getServer().getPluginManager().registerEvents(this, SpigotAPI.getInstance().getPlugin());
+
         openInventories.put(player, this);
         openInventory(player);
+
     }
 
     public void closeMenu(HumanEntity player) {
         openInventories.remove(player, this);
-    }
 
+        InventoryClickEvent.getHandlerList().unregister(this);
+        InventoryClickEvent.getHandlerList().unregister(this);
+    }
 
     public void openInventory(final HumanEntity ent) {
         ent.openInventory(inv);
@@ -74,32 +83,51 @@ public class GuiInventory extends SpigotObject implements Listener {
     }
 
     // Check for clicks on items
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onInventoryClick(final InventoryClickEvent e) {
-        if (e.getInventory() != inv) return;
 
-        e.setCancelled(true);
+        if (!e.getInventory().equals(inv)) return;
+
+        boolean cancelled = true;
 
         int slot = e.getRawSlot();
         GuiItem item = getItems().get(slot);
-        if(item != null) {
-            item.click(e);
-        }
-    }
 
-    // Cancel dragging in our inventory
-    @EventHandler
-    public void onInventoryClick(InventoryDragEvent e) {
-        if (e.getInventory() == inv) {
-            e.setCancelled(true);
+        if(item != null) {
+
+            if(canMoveEmptyItems && item.getExecutor() == null) {
+                cancelled = false;
+            }
+
+            item.click(e);
+        } else if(canMoveEmptyItems) {
+            cancelled = false;
+        }
+
+        if(cancelled) {
+            e.setResult(Event.Result.DENY);
+            //e.setCancelled(true);
         }
     }
 
     // Remove player from cache
-    @EventHandler
-    public void onInventoryClose(InventoryCloseEvent e) {
-        if (e.getInventory() == inv) {
+    @EventHandler(ignoreCancelled = true)
+    public void onInventoryClose(final InventoryCloseEvent e) {
+        if (e.getInventory().equals(inv)) {
             closeMenu(e.getPlayer());
+        }
+    }
+
+    public void setRow(int row, GuiItem item) {
+        for(int i = 9 * row; i < 9 * (row + 1); i++) {
+            setItem(i, item);
+        }
+    }
+
+    public void setColumn(int col, GuiItem item) {
+        for(int i = 0; i < inv.getSize() / 9; i++) {
+            int slot = (i * 9) + col;
+            setItem(slot, item);
         }
     }
 

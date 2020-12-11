@@ -7,12 +7,12 @@ import net.xilla.spigotcore.SpigotException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Controller<T extends ControllerObject> extends Manager {
+public abstract class Controller<T extends ControllerObject> extends Manager<String, T> {
 
     private Map<String, Object> defaults;
 
-    protected Controller(String identifier, String settings) {
-        super(identifier, settings);
+    protected Controller(String identifier, String settings, Class<T> clazz) {
+        super(identifier, settings, clazz);
         this.defaults = new HashMap<>();
     }
 
@@ -39,7 +39,5 @@ public abstract class Controller<T extends ControllerObject> extends Manager {
     public void setData(String object, String key, Object data) {
         setData((T)get(object), key, data);
     }
-
-    public abstract void load();
 
 }

@@ -3,18 +3,19 @@ package net.xilla.spigotcore;
 import net.xilla.core.library.manager.Manager;
 import net.xilla.core.library.manager.XillaManager;
 import net.xilla.spigotcore.command.SpigotCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 
-public class SpigotCommands extends SpigotObject {
+public class SpigotCommands implements SpigotObject {
 
     public SpigotCommands() {
         coreCommand();
     }
 
     public void coreCommand() {
-        new SpigotCommand((JavaPlugin)SpigotAPI.getInstance().getPlugin(), "spigotcore", new ArrayList<>(), (data -> {
+        new SpigotCommand("spigotcore", new ArrayList<>(), (data -> {
             StringBuilder stringBuilder = new StringBuilder();
             if(data.getArgs().length >= 1 && data.getArgs()[0].equalsIgnoreCase("status")) {
                 stringBuilder.append("&8&m                        &f");
@@ -58,12 +59,17 @@ public class SpigotCommands extends SpigotObject {
         }));
     }
 
+    /**
+     * Disabled until I add 1.8 - 1.16 version support for this
+     * @return
+     */
     public double getTPS() {
-        double total = 0;
-        for(double x : getServer().getTPS()) {
-            total += x;
-        }
-        return (int)((total / getServer().getTPS().length) * 100) / 100.0;
+        return -1;
+//        double total = 0;
+//        for(double x : Bukkit.getServer().spigot().getTPS()) {
+//            total += x;
+//        }
+//        return (int)((total / getServer().getTPS().length) * 100) / 100.0;
     }
 
 }

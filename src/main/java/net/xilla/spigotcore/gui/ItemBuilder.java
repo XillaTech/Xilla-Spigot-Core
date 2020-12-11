@@ -8,7 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemBuilder extends SpigotObject {
+public class ItemBuilder implements SpigotObject {
 
     private ItemStack itemStack;
 
@@ -35,7 +35,11 @@ public class ItemBuilder extends SpigotObject {
             coloredLore.add(colorize(str));
         }
 
-        itemStack.setLore(coloredLore);
+        ItemMeta meta = itemStack.getItemMeta();
+        if(meta != null) {
+            meta.setLore(coloredLore);
+        }
+        itemStack.setItemMeta(meta);
         return this;
     }
 
@@ -50,6 +54,11 @@ public class ItemBuilder extends SpigotObject {
 
     public ItemStack build() {
         return itemStack;
+    }
+
+    public ItemBuilder setType(Material material) {
+        this.itemStack.setType(material);
+        return this;
     }
 
 }

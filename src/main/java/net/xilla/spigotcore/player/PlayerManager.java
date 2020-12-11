@@ -11,28 +11,8 @@ import java.util.ArrayList;
 public class PlayerManager extends Controller<SpigotPlayer> {
 
     public PlayerManager() {
-        super("Spigot_Player", SpigotAPI.getInstance().getPlugin().getDataFolder() + "/player-data.json");
+        super("Spigot_Player","player-data.yml", SpigotPlayer.class);
         load();
-    }
-
-    @Override
-    public void load() {
-        if(getConfig() != null) {
-            for(Object key : new ArrayList<Object>(getConfig().getJson().getJson().keySet())) {
-                JSONObject json = getConfig().getJSON(key.toString());
-                put(new SpigotPlayer(key.toString(), new XillaJson(json)));
-            }
-        }
-    }
-
-    @Override
-    protected void objectAdded(ManagerObject managerObject) {
-
-    }
-
-    @Override
-    protected void objectRemoved(ManagerObject managerObject) {
-
     }
 
 }

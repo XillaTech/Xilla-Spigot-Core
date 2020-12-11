@@ -19,7 +19,7 @@ public class Locale extends Config {
     }
 
     public Locale(String plugin) {
-        super("language-" + plugin + ".json");
+        super("/language-" + plugin + ".json");
         setDefault("prefix", "&8[&3" + plugin + "&8] &f");
         save();
     }

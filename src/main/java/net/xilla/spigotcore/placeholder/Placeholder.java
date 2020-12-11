@@ -23,7 +23,7 @@ public class Placeholder extends ManagerObject {
     }
 
     public String getTag() {
-        return getKey();
+        return getKey().toString();
     }
 
     public String getPlaceholder() {

@@ -31,7 +31,7 @@ public abstract class ControllerObject extends ManagerObject {
 
     public <T> T get(String key) throws SpigotException {
         if(!data.containsKey(key)) {
-            Object def = SpigotAPI.getInstance().getPlayerManager().getDefault(key);
+            Object def = ((Controller)getManager()).getDefault(key);
             if(def != null) {
                 data.put(key, def);
             } else {

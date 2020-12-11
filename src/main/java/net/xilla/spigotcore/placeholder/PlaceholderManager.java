@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-public class PlaceholderManager extends Manager<Placeholder> {
+public class PlaceholderManager extends Manager<String, Placeholder> {
 
     public PlaceholderManager() {
         super("Spigot_Placeholder");
@@ -17,21 +17,6 @@ public class PlaceholderManager extends Manager<Placeholder> {
         }
 
         return string;
-    }
-
-    @Override
-    public void load() {
-
-    }
-
-    @Override
-    protected void objectAdded(Placeholder placeholder) {
-
-    }
-
-    @Override
-    protected void objectRemoved(Placeholder placeholder) {
-
     }
 
 }
