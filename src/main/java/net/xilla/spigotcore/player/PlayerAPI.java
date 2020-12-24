@@ -2,6 +2,7 @@ package net.xilla.spigotcore.player;
 
 import net.xilla.spigotcore.SpigotAPI;
 import net.xilla.spigotcore.SpigotException;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 public class PlayerAPI {
@@ -20,10 +21,10 @@ public class PlayerAPI {
         SpigotAPI.getInstance().getPlayerManager().setDefault(key, def);
     }
 
-    public SpigotPlayer get(Player player) throws SpigotException {
+    public SpigotPlayer get(OfflinePlayer player) throws SpigotException {
         SpigotPlayer spigotPlayer = (SpigotPlayer) SpigotAPI.getInstance().getPlayerManager().get(player.getUniqueId().toString());
         if(spigotPlayer == null) {
-            spigotPlayer = new SpigotPlayer(player.getUniqueId().toString(), player.getDisplayName());
+            spigotPlayer = new SpigotPlayer(player.getUniqueId().toString(), player.getName());
             SpigotAPI.getInstance().getPlayerManager().put(spigotPlayer);
         }
         return spigotPlayer;

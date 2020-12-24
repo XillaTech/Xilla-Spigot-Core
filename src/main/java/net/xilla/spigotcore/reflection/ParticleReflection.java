@@ -1,5 +1,6 @@
 package net.xilla.spigotcore.reflection;
 
+import net.xilla.core.library.config.ConfigFile;
 import net.xilla.core.reflection.Reflection;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -13,12 +14,12 @@ public class ParticleReflection extends Reflection<Particle> {
     }
 
     @Override
-    public Particle loadFromSerializedData(Object o, Field field, Object o1) {
+    public Particle loadFromSerializedData(ConfigFile file, Object o, Field field, Object o1) {
         return Particle.valueOf(o1.toString());
     }
 
     @Override
-    public Object getSerializedData(Object o, Field field, Particle particle) {
+    public Object getSerializedData(ConfigFile file, Object o, Field field, Particle particle) {
         return particle.name();
     }
 

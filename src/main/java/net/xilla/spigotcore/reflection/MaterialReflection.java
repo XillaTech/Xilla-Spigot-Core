@@ -1,5 +1,6 @@
 package net.xilla.spigotcore.reflection;
 
+import net.xilla.core.library.config.ConfigFile;
 import net.xilla.core.reflection.Reflection;
 import org.bukkit.Material;
 
@@ -12,12 +13,12 @@ public class MaterialReflection extends Reflection<Material> {
     }
 
     @Override
-    public Material loadFromSerializedData(Object o, Field field, Object o1) {
+    public Material loadFromSerializedData(ConfigFile file, Object o, Field field, Object o1) {
         return Material.getMaterial(o1.toString());
     }
 
     @Override
-    public Object getSerializedData(Object o, Field field, Material material) {
+    public Object getSerializedData(ConfigFile file, Object o, Field field, Material material) {
         return material.name();
     }
 

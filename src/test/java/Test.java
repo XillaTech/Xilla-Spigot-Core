@@ -1,9 +1,9 @@
 import lombok.Getter;
 import lombok.Setter;
+import net.xilla.core.library.config.Settings;
 import net.xilla.core.library.manager.StoredData;
-import net.xilla.spigotcore.util.SpigotSettings;
 
-public class Test extends SpigotSettings {
+public class Test extends Settings {
 
     public static void main(String[] args) {
 

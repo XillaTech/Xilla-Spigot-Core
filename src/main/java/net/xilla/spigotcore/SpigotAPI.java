@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SpigotAPI {
 
-    private static SpigotAPI instance;
+    private static SpigotAPI instance = null;
 
     public static SpigotAPI getInstance() {
         return instance;

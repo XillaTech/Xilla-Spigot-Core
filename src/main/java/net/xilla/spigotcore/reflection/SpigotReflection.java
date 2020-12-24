@@ -17,6 +17,11 @@ public class SpigotReflection {
             ReflectionManager.getInstance().put(new MaterialReflection());
         } catch (Exception ignored) {}
 
+
+        try {
+            ReflectionManager.getInstance().put(new PlayerReflection());
+        } catch (Exception ignored) {}
+
         try {
             Class.forName("Particle");
             ParticleReflection reflection = new ParticleReflection();
@@ -27,6 +32,11 @@ public class SpigotReflection {
         try {
             ReflectionManager.getInstance().put(new SoundReflection());
         } catch (Exception ignored) {}
+
+        try {
+            ReflectionManager.getInstance().put(new SerializedObjectReflection());
+        } catch (Exception ignored) {}
+
     }
 
 }

@@ -59,10 +59,7 @@ public class GuiInventory implements SpigotObject, Listener {
     }
 
     public void openMenu(HumanEntity player, Object... args) {
-
         SpigotAPI.getInstance().getPlugin().getServer().getPluginManager().registerEvents(this, SpigotAPI.getInstance().getPlugin());
-
-        openInventories.put(player, this);
         openInventory(player);
 
     }
@@ -74,7 +71,8 @@ public class GuiInventory implements SpigotObject, Listener {
         InventoryClickEvent.getHandlerList().unregister(this);
     }
 
-    public void openInventory(final HumanEntity ent) {
+    private void openInventory(final HumanEntity ent) {
+        openInventories.put(ent, this);
         ent.openInventory(inv);
     }
 

@@ -20,6 +20,7 @@ public class YamlFile implements ConfigFile {
     private String file = null;
 
     @Setter
+    @Getter
     private YamlConfiguration yaml;
 
     @Override
@@ -40,7 +41,8 @@ public class YamlFile implements ConfigFile {
                 // try to save resource, if it does not exist then just create a new file
                 try {
                     SpigotAPI.getCore().getPlugin().saveResource(file, false);
-                } catch (Exception ex) {
+                } catch (IllegalArgumentException ex) {
+                    f.getParentFile().mkdirs();
                     f.createNewFile();
                 }
             }
@@ -77,15 +79,15 @@ public class YamlFile implements ConfigFile {
 
             File f = new File(s);
             if(!f.exists()) {
-                // try to save resource, if it does not exist then just create a new file
                 try {
-                    SpigotAPI.getCore().getPlugin().saveResource(s, false);
-                } catch (Exception ex) {
+                    SpigotAPI.getCore().getPlugin().saveResource(file, false);
+                } catch (IllegalArgumentException ex) {
+                    f.getParentFile().mkdirs();
                     f.createNewFile();
                 }
             }
 
-            y.load(s);
+            y.load(f);
             yamlFile.setYaml(y);
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
