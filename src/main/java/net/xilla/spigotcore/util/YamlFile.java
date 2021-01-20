@@ -60,13 +60,18 @@ public class YamlFile implements ConfigFile {
     }
 
     @Override
-    public <T> T get(String s) {
-        return (T)yaml.get(s);
+    public Object get(String s) {
+        return yaml.get(s);
     }
 
     @Override
     public void set(String s, Object o) {
         yaml.set(s, o);
+    }
+
+    @Override
+    public void remove(String s) {
+        yaml.set(s, null);
     }
 
     @Override

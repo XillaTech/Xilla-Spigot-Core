@@ -1,11 +1,11 @@
-package net.xilla.spigotcore.reflection;
+package net.xilla.spigotcore.reflection.storage;
 
 import net.xilla.core.library.config.ConfigFile;
 import net.xilla.core.library.json.SerializedObject;
 import net.xilla.core.library.json.XillaJson;
 import net.xilla.core.log.LogLevel;
 import net.xilla.core.log.Logger;
-import net.xilla.core.reflection.Reflection;
+import net.xilla.core.reflection.storage.StorageReflection;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.json.simple.JSONObject;
@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
 import java.lang.reflect.Field;
 import java.util.Map;
 
-public class SerializedObjectReflection extends Reflection<SerializedObject> {
+public class SerializedObjectReflection extends StorageReflection<SerializedObject> {
 
     public SerializedObjectReflection() {
         super(SerializedObject.class);

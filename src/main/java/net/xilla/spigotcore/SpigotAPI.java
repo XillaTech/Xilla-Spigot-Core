@@ -33,9 +33,9 @@ public class SpigotAPI {
     private SpigotReflection reflection;
 
     @Getter
-    private JavaPlugin plugin;
+    private Plugin plugin;
 
-    public SpigotAPI(@NotNull JavaPlugin plugin) {
+    public SpigotAPI(Plugin plugin) {
         instance = this;
 
         this.reflection = new SpigotReflection();
@@ -46,13 +46,24 @@ public class SpigotAPI {
         load(plugin);
     }
 
+    public SpigotAPI(String name) {
+        instance = this;
+
+        this.reflection = new SpigotReflection();
+
+        new ConfigManager();
+
+        this.plugin = Bukkit.getServer().getPluginManager().getPlugin(name);
+        load(plugin);
+    }
+
     public void load(Plugin plugin) {
         try {
             ConfigManager.getInstance().setBaseFolder(plugin.getDataFolder().getAbsolutePath() + "/");
 
             YamlFile file = new YamlFile();
-            ExtensionManager.getInstance().put(new ConfigExtension("yml", file, "yml"));
-            ExtensionManager.getInstance().put(new ConfigExtension("yaml", file, "yml"));
+            ExtensionManager.getInstance().put(new ConfigExtension("yml", file));
+            ExtensionManager.getInstance().put(new ConfigExtension("yaml", file));
 
             this.placeholderManager = new PlaceholderManager();
             this.playerAPI = new PlayerAPI();

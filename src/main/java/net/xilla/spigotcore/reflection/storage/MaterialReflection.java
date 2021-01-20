@@ -1,12 +1,12 @@
-package net.xilla.spigotcore.reflection;
+package net.xilla.spigotcore.reflection.storage;
 
 import net.xilla.core.library.config.ConfigFile;
-import net.xilla.core.reflection.Reflection;
+import net.xilla.core.reflection.storage.StorageReflection;
 import org.bukkit.Material;
 
 import java.lang.reflect.Field;
 
-public class MaterialReflection extends Reflection<Material> {
+public class MaterialReflection extends StorageReflection<Material> {
 
     public MaterialReflection() {
         super(Material.class);

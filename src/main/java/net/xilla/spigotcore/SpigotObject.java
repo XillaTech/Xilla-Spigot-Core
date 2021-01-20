@@ -5,6 +5,7 @@ import net.xilla.spigotcore.placeholder.PlaceholderAPI;
 import net.xilla.spigotcore.placeholder.PlaceholderManager;
 import net.xilla.spigotcore.player.PlayerAPI;
 import net.xilla.spigotcore.player.PlayerManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 
@@ -15,7 +16,7 @@ public interface SpigotObject extends XillaLibrary {
     }
 
     default Server getServer() {
-        return SpigotAPI.getInstance().getPlugin().getServer();
+        return Bukkit.getServer();
     }
 
     default String colorize(String str) {

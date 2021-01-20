@@ -39,7 +39,7 @@ public class SpigotCommand extends CommandLibrary {
             Logger.log(LogLevel.FATAL, "Command is missing it's plugin data!", getClass());
             return;
         }
-        PluginCommand cmd = SpigotAPI.getInstance().getPlugin().getCommand(command);
+        PluginCommand cmd = SpigotAPI.getInstance().getPlugin().getServer().getPluginCommand(command);
         if(cmd != null) {
             cmd.setExecutor(((sender, command1, label, args) -> {
                 if (label.equalsIgnoreCase(command) || aliases.contains(label.toLowerCase())) {
@@ -87,7 +87,7 @@ public class SpigotCommand extends CommandLibrary {
             Logger.log(LogLevel.FATAL, "Command is missing it's plugin data!", getClass());
             return;
         }
-        PluginCommand cmd = SpigotAPI.getInstance().getPlugin().getCommand(command);
+        PluginCommand cmd = SpigotAPI.getInstance().getPlugin().getServer().getPluginCommand(command);
         if(cmd != null) {
             cmd.setExecutor(((sender, command1, label, args) -> {
                 if (label.equalsIgnoreCase(command)) {
