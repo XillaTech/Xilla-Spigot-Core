@@ -27,7 +27,7 @@ public class BlockWorker {
         long start = System.currentTimeMillis();
 
         while (!queue.isEmpty()) {
-            if(System.currentTimeMillis() - lastRun > 30) {
+            if(System.currentTimeMillis() - start > 25) {
                 break;
             }
 
