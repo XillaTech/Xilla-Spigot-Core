@@ -20,6 +20,11 @@ public abstract class ControllerObject extends ManagerObject {
         this.data = new JSONObject();
     }
 
+
+    public ControllerObject() {
+        this.data = new JSONObject();
+    }
+
     public ControllerObject(String key, JSONObject data, String controller) {
         super(key, XillaManager.getInstance().get(controller));
         this.data = data;

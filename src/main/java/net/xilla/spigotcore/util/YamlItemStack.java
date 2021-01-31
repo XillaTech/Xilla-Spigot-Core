@@ -15,18 +15,19 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class StoredItem implements SerializedObject {
+public class YamlItemStack implements SerializedObject {
 
     @Getter
     private ItemStack item;
 
-    public StoredItem(ItemStack item) {
+    public YamlItemStack(ItemStack item) {
         this.item = item;
     }
 
-    public StoredItem() {}
+    public YamlItemStack() {}
 
     @Override
     public XillaJson getSerializedData() {
@@ -73,11 +74,11 @@ public class StoredItem implements SerializedObject {
         int amount = 1;
 
         if(json.containsKey("data")) {
-            data = Byte.parseByte(json.get("data"));
+            data = Byte.parseByte(json.get("data").toString());
         }
 
         if(json.containsKey("amount")) {
-            amount = Integer.parseInt(json.get("amount"));
+            amount = Integer.parseInt(json.get("amount").toString());
         }
 
         ItemBuilder builder = ItemBuilder.of(new ItemStack(mat, amount, data));
@@ -87,7 +88,8 @@ public class StoredItem implements SerializedObject {
         }
 
         if(json.containsKey("lore")) {
-            builder.setLore(json.get("lore"));
+            List<String> lore = json.get("lore");
+            builder.setLore(lore.toArray(new String[0]));
         }
 
         if(json.containsKey("enchantments")) {

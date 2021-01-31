@@ -4,9 +4,7 @@ main: net.xilla.spigotcore.SpigotAPI
 description: A gems plugin
 author: Tobias
 softdepend: [PlaceholderAPI]
-
 load: STARTUP
-
 commands:
   spigotcore:
     usage: /<command>

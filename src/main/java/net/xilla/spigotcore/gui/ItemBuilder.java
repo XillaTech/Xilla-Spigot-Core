@@ -2,6 +2,7 @@ package net.xilla.spigotcore.gui;
 
 import net.xilla.spigotcore.SpigotObject;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -59,6 +60,10 @@ public class ItemBuilder implements SpigotObject {
     public ItemBuilder setType(Material material) {
         this.itemStack.setType(material);
         return this;
+    }
+
+    public void enchant(Enchantment enchantment, int level) {
+        this.itemStack.addEnchantment(enchantment, level);
     }
 
 }

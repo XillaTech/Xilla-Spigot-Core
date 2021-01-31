@@ -2,6 +2,8 @@ package net.xilla.spigotcore.player;
 
 import net.xilla.core.library.json.XillaJson;
 import net.xilla.spigotcore.controller.ControllerObject;
+import org.bukkit.configuration.MemorySection;
+import org.json.simple.JSONObject;
 
 public class SpigotPlayer extends ControllerObject {
 
@@ -11,6 +13,8 @@ public class SpigotPlayer extends ControllerObject {
         super(uuid, "Spigot_Player");
         this.lastName = lastName;
     }
+
+    public SpigotPlayer() {}
 
     public String getLastName() {
         return lastName;
@@ -23,7 +27,16 @@ public class SpigotPlayer extends ControllerObject {
 
     @Override
     public void loadSerializedData(XillaJson xillaJson) {
-        setData(xillaJson.get("data"));
+
+        Object obj = xillaJson.get("data");
+
+        if(obj instanceof MemorySection) {
+            MemorySection sect = (MemorySection) obj;
+            setData(new JSONObject(sect.getValues(false)));
+        } else {
+            setData(new JSONObject(xillaJson.get("data")));
+        }
+
         this.lastName = xillaJson.get("lastName");
     }
 }
